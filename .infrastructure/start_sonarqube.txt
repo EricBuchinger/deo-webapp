@@ -1,0 +1,1 @@
+docker run -d --name deo-sonarqube --restart unless-stopped --network deo-network -p 9000:9000 sonarqube:10.7.0-community
