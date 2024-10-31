@@ -1,0 +1,2 @@
+ dotnet list package --include-transitive --vulnerable //auflistung von vulnerable packages
+ ./playwright.ps1 codegen --ignore-https-errors https://localhost:5543
