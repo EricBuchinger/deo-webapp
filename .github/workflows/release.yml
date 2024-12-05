@@ -11,12 +11,11 @@ jobs:
     release:
         name: Create Release
         runs-on: ubuntu-latest
+        env:
+            GH_TOKEN: ${{ secrets.SONAR_KEY }}
         steps:
-            - name: Check out repository code
-              uses: actions/checkout@v4
+            - uses: actions/checkout@v4
               with:
                 fetch-depth: 0
-            - name: Create GitHub release
-              env:
-                GH_TOKEN: ${{ secrets.SONAR_KEY }}
-              run: gh release create "${GITHUB_REF_NAME}" --title "Release ${GITHUB_REF_NAME}" --notes "Generated release for ${GITHUB_REF_NAME}"
+            - run: |
+               gh release create "${GITHUB_REF_NAME}" --title "Release ${GITHUB_REF_NAME}" --notes "Generated release for ${GITHUB_REF_NAME}"
