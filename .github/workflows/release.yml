@@ -2,21 +2,22 @@ name: Realese
 
 run-name: Release triggered by ${{ github.actor }} 😎
 
-
 on:
     push:
         tags:
             - v* #wird nur ausgeführt, wenn ein Tag erstellt wird, der mit v beginnt
+permissions:
+    contents: write
 jobs:
     release:
-        name: Create Release
         runs-on: ubuntu-latest
-        env:
-            GH_TOKEN: ${{ secrets.SONAR_KEY }}
         steps:
-            - uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
-            - run: |
-               echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-               gh release create "${GITHUB_REF_NAME}" --title "Release ${GITHUB_REF_NAME}" --notes "Generated release for ${GITHUB_REF_NAME}"
+            - name: Create Release
+              env:
+               GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+               TAG: ${{ github.ref_name }}
+              run: |
+               gh release create "$TAG" \
+                  --repo="$GITHUB_REPOSITORY" \
+                  --title "Release ${TAG#v}" \
+                  --generate-notes
