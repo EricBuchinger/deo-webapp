@@ -1,0 +1,20 @@
+name: Realese
+
+run-name: Release triggered by ${{ github.actor }} 😎
+
+
+on:
+    push:
+        tags:
+            - v* #wird nur ausgeführt, wenn ein Tag erstellt wird, der mit v beginnt
+jobs:
+    release:
+        name: Create Release
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Create GitHub release
+              run: TAG_NAME=${GITHUB_REF_NAME}
+                   RELEASE_NAME="Release $TAG_NAME"
+                   RELEASE_NOTES="Generated release for $TAG_NAME"
+                   gh release create "$TAG_NAME" --title "$RELEASE_NAME" --notes "$RELEASE_NOTES"
