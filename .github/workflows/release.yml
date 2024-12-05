@@ -11,11 +11,8 @@ jobs:
     release:
         name: Create Release
         runs-on: ubuntu-latest
-        env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
         steps:
             - name: Create GitHub release
-              run: TAG_NAME=${GITHUB_REF_NAME}
-                   RELEASE_NAME="Release $TAG_NAME"
-                   RELEASE_NOTES="Generated release for $TAG_NAME"
-                   gh release create "$TAG_NAME" --title "$RELEASE_NAME" --notes "$RELEASE_NOTES"
+              env:
+                GH_TOKEN: ${{ secrets.SONAR_KEY }}
+              run: gh release create "${GITHUB_REF_NAME}" --title "Release ${GITHUB_REF_NAME}" --notes "Generated release for ${GITHUB_REF_NAME}"
