@@ -1,0 +1,29 @@
+kubectl create namespace deo
+kubectl config set-context --current --namespace=deo
+
+kubectl apply -f .\deo-backend-dep.yaml
+kubectl apply -f .\deo-backend-svc.yaml
+kubectl apply -f .\deo-frontend-dep.yaml
+kubectl apply -f .\deo-frontend-svc.yaml
+
+kubectl delete -f .\deo-backend-dep.yaml
+kubectl delete -f .\deo-backend-svc.yaml
+kubectl delete -f .\deo-frontend-dep.yaml
+kubectl delete -f .\deo-frontend-svc.yaml
+
+kubectl delete namespace Deo
+
+kubectl config set-context --current --namespace=default
+
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+winget install -e argoproj.argocd
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+argocd admin initial-password -n argocd
+argocd login localhost:8080
+argocd account update-password (admin12345678)
+kubectl config set-context --current --namespace=argocd
+kubectl create namespace deo
+argocd app create deo-webapp --repo https://github.com/EricBuchinger/deo-webapp.git --path ./.infrastructure/k8s --dest-server https://kubernetes.default.svc --dest-namespace deo
+argocd app sync deo-webapp

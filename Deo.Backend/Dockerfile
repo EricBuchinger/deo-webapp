@@ -1,15 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.20 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine3.20 AS build-stage
 WORKDIR /build
 COPY . .
-RUN dotnet publish -o /app/publish/
+RUN dotnet publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine3.20 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine3.20
 WORKDIR /app
-COPY --from=build /app/publish .
-
-ENV DOTNET_HTTP_PORTS=80
-#ENV ASPNETCORE_URLS=http://*:3000
-
+COPY --from=build-stage /build/bin/Release/net8.0/publish/ .
 ENTRYPOINT ["/app/Deo.Backend"]
-EXPOSE 80/tcp
 
+# docker build -t deo-backend:latest .
+# docker run --name deo-backend -d --network deo-network -p 5000:5000 deo-backend:latest --urls http://0.0.0.0:5000
