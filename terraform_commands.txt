@@ -1,0 +1,6 @@
+Konfiguration für TerraForm abfragen
+kubectl config view --minify --flatten
+
+terraform plan
+terraform apply
+terraform destroy

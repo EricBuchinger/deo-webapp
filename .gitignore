@@ -11,6 +11,10 @@
 *.sln.docstates
 docker_commands.txt
 used_commands.txt
+terraform.tfvars
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

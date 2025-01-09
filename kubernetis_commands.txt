@@ -27,3 +27,15 @@ kubectl config set-context --current --namespace=argocd
 kubectl create namespace deo
 argocd app create deo-webapp --repo https://github.com/EricBuchinger/deo-webapp.git --path ./.infrastructure/k8s --dest-server https://kubernetes.default.svc --dest-namespace deo
 argocd app sync deo-webapp
+
+# canary deployment
+kubectl create namespace deo
+kubectl apply -f .\deo-backend-dep.yaml
+kubectl apply -f .\deo-frontend-dep-prod.yaml
+kubectl apply -f .\deo-frontend-dep-canary.yaml
+kubectl apply -f .\deo-frontend-ingress-canary.yaml -n deo
+kubectl apply -f .\deo-frontend-ingress-prod.yaml -n deo
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.3/deploy/static/provider/cloud/deploy.yaml
+kubectl get pods -n ingress-nginx
+kubectl logs -f -n ingress-nginx ingress-nginx-controller-85bc8b845b-bnhls
+
