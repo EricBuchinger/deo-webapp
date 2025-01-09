@@ -80,9 +80,9 @@ resource "kubernetes_deployment" "deo-frontend" {
         container {
           image = "ghcr.io/ericbuchinger/deo-webapp-frontend:latest"
           name  = "deo-frontend"
-          args  = ["--urls", "http://*:3000"]
+          args  = ["--urls", "http://*:2000"]
           port {
-            container_port = 3000
+            container_port = 2000
           }
           env {
             name  = "DEO_BACKEND_URL"
