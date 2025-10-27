@@ -48,17 +48,15 @@ Damit du das Projekt lokal zum Laufen bringen kannst, brauchst du:
 ## 🚀 Installation & Lokales Setup  
 
 1. **Repository klonen:**  
-   ```bash
-   git clone https://github.com/EricBuchinger/deo-webapp.git
-   cd deo-webapp
-
+```bash
+git clone https://github.com/EricBuchinger/deo-webapp.git
+cd deo-webapp
+```
 2. **.NET-Solution öffnen oder über CLI builden:**
 ```bash
 dotnet restore
 dotnet build
 ```
-
-
 3. **Docker Compose starten (aus dem Projektroot):**
 
 `docker compose up --build`
@@ -70,11 +68,11 @@ dotnet build
 Standardmäßig unter http://localhost:3000
 
 5.**Tests ausführen:**
-
+```bash
 dotnet test ./Deo.Backend.Tests
 dotnet test ./Deo.Frontend.Tests
 dotnet test ./Deo.WebApp.Tests
-
+```
 ## ☁️ Deployment & Infrastruktur
 
 Docker Compose – Lokale Services (compose.yaml).
