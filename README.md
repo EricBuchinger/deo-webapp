@@ -51,3 +51,62 @@ Damit du das Projekt lokal zum Laufen bringen kannst, brauchst du:
    ```bash
    git clone https://github.com/EricBuchinger/deo-webapp.git
    cd deo-webapp
+
+## .NET-Solution öffnen oder über CLI builden:
+```bash
+dotnet restore
+dotnet build
+```
+
+
+## Docker Compose starten (aus dem Projektroot):
+
+`docker compose up --build`
+
+→ Das setzt Backend, Frontend und ggf. Datenbanken in Containern auf.
+
+### Frontend im Browser öffnen:
+
+Standardmäßig unter http://localhost:3000
+
+## Tests ausführen:
+
+dotnet test ./Deo.Backend.Tests
+dotnet test ./Deo.Frontend.Tests
+dotnet test ./Deo.WebApp.Tests
+
+## ☁️ Deployment & Infrastruktur
+
+Docker Compose – Lokale Services (compose.yaml).
+
+Kubernetes – Beispiel-Kommandos in kubernetis_commands.txt.
+
+Terraform – Infrastruktur-Provisionierung über terraform_commands.txt.
+
+Monitoring – prometheus.yml für Prometheus-Konfiguration.
+
+## 🧩 Architekturübersicht
+
+Backend: REST-API / GraphQL (C#, ASP.NET Core).
+
+Frontend: Moderne WebApp mit HTML/CSS/JavaScript oder Framework (z. B. React).
+
+Containerisierung: Jede Komponente läuft in einem separaten Docker-Container.
+
+Orchestrierung: Deployment über Kubernetes.
+
+Infrastructure as Code: Terraform für Cloud-Ressourcen.
+
+Monitoring: Prometheus sammelt Metriken (optional Grafana).
+
+CI/CD: GitHub Actions für Build, Test & Deployment.
+
+## 🔄 CI/CD Workflow
+
+Build: Prüft Code-Qualität, kompiliert Backend & Frontend.
+
+Test: Führt Unit- und Integrationstests aus.
+
+Container-Build: Erzeugt Docker-Images.
+
+Deployment: Automatisch in Staging oder Produktion (je nach Branch).
