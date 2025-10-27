@@ -1,0 +1,1 @@
+docker run --rm --net deo-network jordi/ab -n 30000 -c 100 https://deo-devcontainer:5543/service-counter
